@@ -12,7 +12,7 @@
   <title>FLOWERS</title>
 </head>
 
-<body class="not-loaded">
+<body class="container">
   <!-- Background -->
   <div class="night"></div>
 
@@ -313,12 +313,27 @@
       </div>
     </div>
   </div>
-
-  <!-- Title -->
-  <h1 class="title"><span id="title"></span></h1>
+  
+  <!-- Question Box -->
+  <div class="question-box">
+    <h2 class="question-text">Would you like to be my girlfriend?</h2>
+    <div class="button-container">
+      <button class="answer-btn yes-btn" id="yesBtn">Yes</button>
+      <button class="answer-btn no-btn" id="noBtn">No</button>
+    </div>
+  </div>
+  
+  <!-- Audio for background music (Sempurna2) -->
+  <audio id="backgroundMusic2" preload="auto" loop>
+    <source src="music/Sempurna2.mp3" type="audio/mpeg">
+  </audio>
+  
+  <!-- Audio for typewriter effect -->
+  <audio id="typewriterSound" preload="auto">
+    <source src="music/035385_long-sound-typewriter-76388.mp3" type="audio/mpeg">
+  </audio>
+  
+  <script src="js/main.js"></script>
 </body>
 
 </html>
-
-<!-- Import Javascript -->
-<script src="js/main.js"></script>
