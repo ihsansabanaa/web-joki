@@ -32,8 +32,8 @@ let canClick = false
 window.addEventListener('load', () => {
   const bgMusic = document.getElementById('backgroundMusic')
   if (bgMusic) {
-    bgMusic.volume = 0 // Start from 0 volume
-    const targetVolume = 0.15 // Target volume 15% (lower)
+  bgMusic.volume = 0 // Start from 0 volume
+  const targetVolume = 0.8 // Target volume 80% (increased per request)
     
     // Ensure seamless looping by using the 'ended' event
     bgMusic.addEventListener('ended', function() {
@@ -219,40 +219,51 @@ function skipToNext() {
     const bgMusic = document.getElementById('backgroundMusic')
     const bgMusic2 = document.getElementById('backgroundMusic2')
     
-    if (bgMusic && bgMusic2) {
-      // Set Sempurna2 volume to 0 and start playing
-      bgMusic2.volume = 0
-      bgMusic2.play().catch(e => console.log('Sempurna2 play failed:', e))
-      
-      const transitionDuration = 1500 // 1.5 seconds
-      const intervalTime = 50 // Update every 50ms
+    if (bgMusic) {
+      // Only fade out Sempurna17 here. Do NOT start Sempurna2 on this page.
+  const transitionDuration = 400 // 0.4 seconds (shorter fade-out)
+  const intervalTime = 50 // Update every 50ms
       const steps = transitionDuration / intervalTime
       const fadeOutStep = bgMusic.volume / steps
-      const fadeInStep = 0.15 / steps // Target volume 15% for Sempurna2
-      
-      const musicTransitionInterval = setInterval(() => {
-        // Fade out Sempurna17
+
+      const musicFadeOutInterval = setInterval(() => {
         if (bgMusic.volume > fadeOutStep) {
           bgMusic.volume = Math.max(0, bgMusic.volume - fadeOutStep)
         } else {
           bgMusic.volume = 0
           bgMusic.pause()
-        }
-        
-        // Fade in Sempurna2
-        if (bgMusic2.volume < 0.15 - fadeInStep) {
-          bgMusic2.volume = Math.min(0.15, bgMusic2.volume + fadeInStep)
-        } else {
-          bgMusic2.volume = 0.15
-          clearInterval(musicTransitionInterval)
+          clearInterval(musicFadeOutInterval)
         }
       }, intervalTime)
+
+      // Before redirecting, mark that Sempurna2 should start on flower page
+      // but do not play it here. Save time=0 so flower page will start from beginning.
+      setTimeout(() => {
+        try {
+          localStorage.setItem('sempurna2_saved', '1')
+          localStorage.setItem('sempurna2_time', '0')
+        } catch (e) {
+          console.log('Could not save sempurna2 flag:', e)
+        }
+
+        try {
+          // Remove and unload Sempurna17 to free resources
+          bgMusic.pause()
+          bgMusic.src = ''
+          bgMusic.load()
+          if (bgMusic.parentNode) bgMusic.parentNode.removeChild(bgMusic)
+        } catch (e) {
+          console.log('Error removing Sempurna17 element:', e)
+        }
+
+        window.location.href = 'flower.html';
+      }, transitionDuration); // Wait for transitionDuration (1.5s)
+    } else {
+      // If one of the tracks is missing, still redirect after the same delay
+      setTimeout(() => {
+        window.location.href = 'flower.html';
+      }, 1500);
     }
-    
-    // Redirect to flower page after fade out
-    setTimeout(() => {
-      window.location.href = 'flower.html';
-    }, 1500); // Wait for fade out animation
     
   } else {
     // Normal fade out for other texts
