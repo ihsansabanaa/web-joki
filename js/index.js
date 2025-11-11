@@ -2,7 +2,7 @@ const title = document.querySelector('.title')
 
 // Array of texts to display in sequence
 const texts = [
-  'Hi nelly',
+  'Hi kakkk',
   'Ada beberapa hal',
   'Yang perlu saya ungkapkan',
   'Entah mengapa setiap kali',
