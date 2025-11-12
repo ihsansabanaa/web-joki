@@ -15,23 +15,14 @@
   <!-- Background -->
   <div class="night"></div>
 
-  <!-- Text Section -->
+  <!-- Text Section (initially visible) -->
   <div id="textSection">
     <!-- Title -->
     <h1 class="title"></h1>
   </div>
 
-  <!-- Flower Section (hidden initially) -->
+  <!-- Flower Section (initially hidden) -->
   <div id="flowerSection" style="display: none;">
-    <div class="flowers"></div>
-    <div class="question-box">
-      <h2 class="question-text">Would you like to be my girlfriend?</h2>
-      <div class="button-container">
-        <button class="answer-btn yes-btn" id="yesBtn">Yes</button>
-        <button class="answer-btn no-btn" id="noBtn">No</button>
-      </div>
-    </div>
-  </div>
 
   <!-- Audio for background music -->
   <audio id="backgroundMusic" preload="auto" loop>
@@ -47,8 +38,12 @@
   <audio id="typewriterSound" preload="auto">
     <source src="music/035385_long-sound-typewriter-76388.mp3" type="audio/mpeg">
   </audio>
+  
+  </div>
+  <!-- End of Flower Section -->
 
   <script src="js/index.js"></script>
+
 </body>
 
 </html>
